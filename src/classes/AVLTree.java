@@ -177,7 +177,7 @@ public class AVLTree {
 
     public void print(Node root) {
         if (root == null) {
-            System.out.println("(XXXXXX)");
+            // System.out.println("(XXXXXX)");
             return;
         }
 

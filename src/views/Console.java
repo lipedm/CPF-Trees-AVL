@@ -4,10 +4,6 @@ import classes.*;
 
 import java.util.Scanner;
 import java.util.List;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Console {
 
@@ -32,17 +28,8 @@ public class Console {
             switch (selection) {
                 case 1:
                     System.out.print("Digite o nome do arquivo: ");
-                    File file = csvLoader.getFile(insert.next());
-                    List<String[]> result = csvLoader.readFile(file, 1);
-                    int listIndex = 0;
-                    for (String[] arrays : result) {
-                        System.out.println("\nString[" + listIndex++ + "] : " + Arrays.toString(arrays));
-
-                        int index = 0;
-                        for (String array : arrays) {
-                            System.out.println(index++ + " : " + array);
-                        }
-                    }
+                    csvLoader.readFile();
+                    
                     break;
 
                 case 2:
@@ -67,9 +54,9 @@ public class Console {
                     break;
             }
 
-            System.out.println("\n///////////////////////////\n");
-            t.print(root);
-            System.out.println("\n///////////////////////////\n");
+            // System.out.println("\n///////////////////////////\n");
+            // t.print(root);
+            // System.out.println("\n///////////////////////////\n");
 
         } while (selection != 4);
 
