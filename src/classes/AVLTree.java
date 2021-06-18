@@ -106,75 +106,7 @@ public class AVLTree {
         }
     }
 
-    private Node minpeopleNode(Node node) {
-        Node current = node;
-
-        while (current.left != null)
-            current = current.left;
-        return current;
-    }
-
-    public Node deleteNode(Node root, People people) {
-        if (root == null)
-            return root;
-
-        if (people < root.people)
-            root.left = deleteNode(root.left, people);
-
-        else if (people > root.people)
-            root.right = deleteNode(root.right, people);
-
-        else {
-
-            if ((root.left == null) || (root.right == null)) {
-                Node temp;
-                if (root.left != null)
-                    temp = root.left;
-                else
-                    temp = root.right;
-
-                if (temp == null) {
-                    temp = root;
-                    root = null;
-                } else
-                    root = temp;
-
-                temp = null;
-            } else {
-                Node temp = minpeopleNode(root.right);
-
-                root.people = temp.people;
-
-                root.right = deleteNode(root.right, temp.people);
-            }
-        }
-
-        if (root == null)
-            return root;
-
-        root.height = Math.max(height(root.left), height(root.right)) + 1;
-
-        int balance = getBalance(root);
-
-        if (balance > 1 && getBalance(root.left) >= 0)
-            return rightRotate(root);
-
-        if (balance > 1 && getBalance(root.left) < 0) {
-            root.left = leftRotate(root.left);
-            return rightRotate(root);
-        }
-
-        if (balance < -1 && getBalance(root.right) <= 0)
-            return leftRotate(root);
-
-        if (balance < -1 && getBalance(root.right) > 0) {
-            root.right = rightRotate(root.right);
-            return leftRotate(root);
-        }
-
-        return root;
-    }
-
+   
     public void print(Node root) {
         if (root == null) {
             // System.out.println("(XXXXXX)");
