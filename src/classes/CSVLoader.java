@@ -21,24 +21,10 @@ public class CSVLoader {
     private String pendingField = "";
     private String[] pendingFieldLine = new String[] {};
 
-    public List<String[]> getFile() throws Exception {
-        URL resource = CSVLoader.class.getClassLoader().getResource("csv/pessoas.csv");
+    public File getFile(String filename) throws Exception {
+        URL resource = CSVLoader.class.getClassLoader().getResource("csv/" + filename);
         File file = Paths.get(resource.toURI()).toFile();
-
-        CSVLoader obj = new CSVLoader();
-        List<String[]> result = obj.readFile(file, 1);
-
-        int listIndex = 0;
-        for (String[] arrays : result) {
-            System.out.println("\nString[" + listIndex++ + "] : " + Arrays.toString(arrays));
-
-            int index = 0;
-            for (String array : arrays) {
-                System.out.println(index++ + " : " + array);
-            }
-        }
-
-        return result;
+        return file;
 
     }
 

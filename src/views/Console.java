@@ -4,6 +4,10 @@ import classes.*;
 
 import java.util.Scanner;
 import java.util.List;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Console {
 
@@ -13,7 +17,6 @@ public class Console {
         AVLTree t = new AVLTree();
         Node root = null;
         CSVLoader csvLoader = new CSVLoader();
-        List<String[]> file;
         int selection = 0;
 
         System.out.println("\nWelcome to CPF AVL System");
@@ -28,8 +31,18 @@ public class Console {
 
             switch (selection) {
                 case 1:
-                    System.out.print("Valor para insercao: ");
-                    file = csvLoader.getFile();
+                    System.out.print("Digite o nome do arquivo: ");
+                    File file = csvLoader.getFile(insert.next());
+                    List<String[]> result = csvLoader.readFile(file, 1);
+                    int listIndex = 0;
+                    for (String[] arrays : result) {
+                        System.out.println("\nString[" + listIndex++ + "] : " + Arrays.toString(arrays));
+
+                        int index = 0;
+                        for (String array : arrays) {
+                            System.out.println(index++ + " : " + array);
+                        }
+                    }
                     break;
 
                 case 2:
