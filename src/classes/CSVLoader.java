@@ -1,46 +1,37 @@
 package classes;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
+import com.opencsv.*;
 
 public class CSVLoader {
 
-    public List<List<String>> readFile() {
-        String fileName= "C:\\Users\\Felipe Fernandes\\Desktop\\Uni\\CPF-Trees-AVL\\csv\\pessoas.csv";
-        File file= new File(fileName);
+    public void readFile() throws IOException {
 
-        List<List<String>> lines = new ArrayList<>();
-        Scanner inputStream;
+        CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Felipe Fernandes\\Desktop\\Uni\\CPF-Trees-AVL\\csv\\pessoas.csv"));
 
-        try{
-            inputStream = new Scanner(file);
+        List<People> peoples = new ArrayList<People>();
 
-            while(inputStream.hasNext()){
-                String line= inputStream.next();
-                String[] values = line.split(";");
-                lines.add(Arrays.asList(values));
+        String[] record = null;
+
+        try {
+            while ((record = reader.readNext()) != null) {
+                People people = new People();
+                people.setCpf(record[0]);
+                people.setRg(record[1]);
+                people.setNome(record[2]);
+                people.setBirthdate(record[3]);
+                people.setCity(record[3]);
+                peoples.add(people);
             }
+        } catch (Exception e) {
+            System.out.println(e);
+        }       
 
-            inputStream.close();
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        System.out.println(peoples);
 
-        int lineNo = 1;
-        for(List<String> line: lines) {
-            int columnNo = 1;
-            for (String value: line) {
-                System.out.println("Line " + lineNo + " Column " + columnNo + ": " + value);
-                columnNo++;
-            }
-            lineNo++;
-        }
-        return lines;
-    } 
+        reader.close();
+    }
 
 }
-
