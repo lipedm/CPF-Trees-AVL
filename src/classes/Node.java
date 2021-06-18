@@ -3,9 +3,9 @@ package classes;
 public class Node {
     public Node left, right, parent;
     public int height = 1;
-    public int value;
+    public People people;
 
-    public Node(int val) {
-        this.value = val;
+    public Node(People val) {
+        this.people = val;
     }
 }

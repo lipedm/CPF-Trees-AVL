@@ -1,37 +1,33 @@
 package classes;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import com.opencsv.*;
+
 
 public class CSVLoader {
 
-    public void readFile() throws IOException {
+    private String file = "C:\\Users\\Felipe Fernandes\\Desktop\\Uni\\CPF-Trees-AVL\\csv\\pessoas.csv" ;
+    public void readFile() throws FileNotFoundException, IOException, IndexOutOfBoundsException {
 
-        CSVReader reader = new CSVReader(new FileReader("C:\\Users\\Felipe Fernandes\\Desktop\\Uni\\CPF-Trees-AVL\\csv\\pessoas.csv"));
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;           
+            People people = new People();
 
-        List<People> peoples = new ArrayList<People>();
-
-        String[] record = null;
-
-        try {
-            while ((record = reader.readNext()) != null) {
-                People people = new People();
-                people.setCpf(record[0]);
-                people.setRg(record[1]);
-                people.setNome(record[2]);
-                people.setBirthdate(record[3]);
-                people.setCity(record[3]);
-                peoples.add(people);
+            AVLTree t = new AVLTree();
+            Node root = null;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(";");
+                people.setCpf(data[0]);
+                people.setRg(data[1]);
+                people.setNome(data[2]);
+                people.setBirthdate(data[3]);
+                people.setCity(data[4]);
+                
+                t.insert(root, people);
+                
             }
-        } catch (Exception e) {
-            System.out.println(e);
-        }       
-
-        System.out.println(peoples);
-
-        reader.close();
+            System.out.println(people);
+            
+        }
     }
 
 }

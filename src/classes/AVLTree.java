@@ -15,50 +15,50 @@ public class AVLTree {
         return searchPath;
     }
 
-    public Node search(Node node, int value) {
+    public Node search(Node node, People people) {
         
-        if (value == node.value) {
-            System.out.println("\nNodo Encontrado: " + node.value);
-            searchPath += node.value;
+        if (people == node.people) {
+            System.out.println("\nNodo Encontrado: " + node.people);
+            searchPath += node.people;
             return node;
-        } else if (value < node.value) {
-            searchPath += node.value + " > ";
-            search(node.left, value);
-        } else if (value > node.value) {
-            searchPath += node.value + " > ";
-            search(node.right, value);
+        } else if (people < node.people) {
+            searchPath += node.people + " > ";
+            search(node.left, people);
+        } else if (people > node.people) {
+            searchPath += node.people + " > ";
+            search(node.right, people);
         }
         System.out.println(searchPath);
         searchPath = "";
         return node;
     }
 
-    public Node insert(Node node, int value) {
+    public Node insert(Node node, People people) {
         if (node == null) {
-            return (new Node(value));
+            return (new Node(people));
         }
 
-        if (value < node.value)
-            node.left = insert(node.left, value);
+        if (people < node.people)
+            node.left = insert(node.left, people);
         else
-            node.right = insert(node.right, value);
+            node.right = insert(node.right, people);
 
         node.height = Math.max(height(node.left), height(node.right)) + 1;
 
         int balance = getBalance(node);
 
-        if (balance > 1 && value < node.left.value)
+        if (balance > 1 && people < node.left.people)
             return rightRotate(node);
 
-        if (balance < -1 && value > node.right.value)
+        if (balance < -1 && people > node.right.people)
             return leftRotate(node);
 
-        if (balance > 1 && value > node.left.value) {
+        if (balance > 1 && people > node.left.people) {
             node.left = leftRotate(node.left);
             return rightRotate(node);
         }
 
-        if (balance < -1 && value < node.right.value) {
+        if (balance < -1 && people < node.right.people) {
             node.right = rightRotate(node.right);
             return leftRotate(node);
         }
@@ -101,12 +101,12 @@ public class AVLTree {
     public void preOrder(Node root) {
         if (root != null) {
             preOrder(root.left);
-            System.out.printf("%d ", root.value);
+            System.out.printf("%d ", root.people);
             preOrder(root.right);
         }
     }
 
-    private Node minValueNode(Node node) {
+    private Node minpeopleNode(Node node) {
         Node current = node;
 
         while (current.left != null)
@@ -114,15 +114,15 @@ public class AVLTree {
         return current;
     }
 
-    public Node deleteNode(Node root, int value) {
+    public Node deleteNode(Node root, People people) {
         if (root == null)
             return root;
 
-        if (value < root.value)
-            root.left = deleteNode(root.left, value);
+        if (people < root.people)
+            root.left = deleteNode(root.left, people);
 
-        else if (value > root.value)
-            root.right = deleteNode(root.right, value);
+        else if (people > root.people)
+            root.right = deleteNode(root.right, people);
 
         else {
 
@@ -141,11 +141,11 @@ public class AVLTree {
 
                 temp = null;
             } else {
-                Node temp = minValueNode(root.right);
+                Node temp = minpeopleNode(root.right);
 
-                root.value = temp.value;
+                root.people = temp.people;
 
-                root.right = deleteNode(root.right, temp.value);
+                root.right = deleteNode(root.right, temp.people);
             }
         }
 
@@ -206,7 +206,7 @@ public class AVLTree {
                     next.add(null);
 
                 } else {
-                    System.out.printf("(%6d)", n.value);
+                    System.out.printf("(%6d)", n.people);
                     next.add(n.left);
                     next.add(n.right);
 

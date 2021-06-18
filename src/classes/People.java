@@ -84,8 +84,6 @@ public class People {
     }
 
     
-
-    @Override
     public String toString() {
         return "{" +
             " cpf='" + getCpf() + "'" +

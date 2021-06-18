@@ -26,23 +26,21 @@ public class Console {
 
             switch (selection) {
                 case 1:
-                    System.out.print("Digite o nome do arquivo: ");
-                    csvLoader.readFile();
-                    
+                    csvLoader.readFile();                    
                     break;
 
                 case 2:
                     if (root != null) {
                         System.out.println("Digite o CPF da pessoa");
                         root = t.search(root, insert.nextInt());
-
                         System.out.println(t.getSearchPath());
                     }
                     break;
 
                 case 3:
                     System.out.print("Digite o nome da pessoa: ");
-                    root = t.deleteNode(root, insert.nextInt());
+                    root = t.search(root, insert.nextInt());
+                    System.out.println(t.getSearchPath());
                     break;
 
                 case 4:
