@@ -1,19 +1,21 @@
 package classes;
 
+import java.time.LocalDate;
+
 public class People {
     private String cpf;
     private String rg;
-    private String Nome ;
-    private String birthdate;
+    private String name;
+    private LocalDate birthdate;
     private String city;
 
     public People() {
     }
 
-    public People(String cpf, String rg, String Nome, String birthdate, String city) {
+    public People(String cpf, String rg, String name, LocalDate birthdate, String city) {
         this.cpf = cpf;
         this.rg = rg;
-        this.Nome = Nome;
+        this.name = name;
         this.birthdate = birthdate;
         this.city = city;
     }
@@ -34,20 +36,21 @@ public class People {
         this.rg = rg;
     }
 
-    public String getNome() {
-        return this.Nome;
+    public String getName() {
+        return this.name;
     }
 
-    public void setNome(String Nome) {
-        this.Nome = Nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBirthdate() {
+    public LocalDate getBirthdate() {
         return this.birthdate;
     }
 
     public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
+        LocalDate lt = LocalDate.parse(birthdate);
+        this.birthdate = lt;
     }
 
     public String getCity() {
@@ -58,40 +61,10 @@ public class People {
         this.city = city;
     }
 
-    public People cpf(String cpf) {
-        setCpf(cpf);
-        return this;
-    }
 
-    public People rg(String rg) {
-        setRg(rg);
-        return this;
-    }
-
-    public People Nome(String Nome) {
-        setNome(Nome);
-        return this;
-    }
-
-    public People birthdate(String birthdate) {
-        setBirthdate(birthdate);
-        return this;
-    }
-
-    public People city(String city) {
-        setCity(city);
-        return this;
-    }
-
-    
     public String toString() {
-        return "{" +
-            " cpf='" + getCpf() + "'" +
-            ", rg='" + getRg() + "'" +
-            ", Nome='" + getNome() + "'" +
-            ", birthdate='" + getBirthdate() + "'" +
-            ", city='" + getCity() + "'" +
-            "}";
+        return "{" + " cpf='" + getCpf() + "'" + ", rg='" + getRg() + "'" + ", name='" + getName() + "'"
+                + ", birthdate='" + getBirthdate() + "'" + ", city='" + getCity() + "'" + "}";
     }
-    
+
 }

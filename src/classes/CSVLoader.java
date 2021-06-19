@@ -1,33 +1,29 @@
 package classes;
 
 import java.io.*;
+import java.util.*;
+import java.time.*;
 
 
 public class CSVLoader {
 
     private String file = "C:\\Users\\Felipe Fernandes\\Desktop\\Uni\\CPF-Trees-AVL\\csv\\pessoas.csv" ;
-    public void readFile() throws FileNotFoundException, IOException, IndexOutOfBoundsException {
+    private List<People> peopleList = new ArrayList<>();
+    public List<People> readFile() throws FileNotFoundException, IOException, IndexOutOfBoundsException {
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;           
-            People people = new People();
-
-            AVLTree t = new AVLTree();
-            Node root = null;
+            String line;
+            People p = new People();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";");
-                people.setCpf(data[0]);
-                people.setRg(data[1]);
-                people.setNome(data[2]);
-                people.setBirthdate(data[3]);
-                people.setCity(data[4]);
-                
-                t.insert(root, people);
-                
+                p.setCpf(data[0]);
+                p.setRg(data[1]);
+                p.setName(data[2]);
+                p.setBirthdate(data[3]);
+                p.setCity(data[4]);
+                peopleList.add(p);                               
             }
-            System.out.println(people);
-            
         }
+        return peopleList;
     }
-
 }

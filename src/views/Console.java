@@ -1,6 +1,7 @@
 package views;
 
 import classes.*;
+import java.util.*;
 
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class Console {
         AVLTree t = new AVLTree();
         Node root = null;
         CSVLoader csvLoader = new CSVLoader();
+        List<People> peopleList = new ArrayList<>();
         int selection = 0;
 
         System.out.println("\nWelcome to CPF AVL System");
@@ -26,21 +28,23 @@ public class Console {
 
             switch (selection) {
                 case 1:
-                    csvLoader.readFile();                    
+                peopleList = csvLoader.readFile();
+                for (People people : peopleList) {
+                    root = t.insert(root, people);
+                }
+                t.print(root);
                     break;
 
                 case 2:
-                    if (root != null) {
-                        System.out.println("Digite o CPF da pessoa");
-                        root = t.searchByCpf(root, insert.next());
-                        System.out.println(t.getSearchPath());
-                    }
+                    System.out.println("Digite o CPF da pessoa");
+                    root = t.searchByCpf(root, insert.next());
+                    System.out.println(t.getSearchPath());
+
                     break;
 
                 case 3:
                     System.out.print("Digite o nome da pessoa: ");
-                    root = t.searchByCpf(root, insert.next());
-                    System.out.println(t.getSearchPath());
+                    t.searchByName(root, insert.next());                    
                     break;
 
                 case 4:
@@ -51,9 +55,6 @@ public class Console {
                     break;
             }
 
-            // System.out.println("\n///////////////////////////\n");
-            // t.print(root);
-            // System.out.println("\n///////////////////////////\n");
 
         } while (selection != 4);
 
