@@ -32,14 +32,14 @@ public class Console {
                 case 2:
                     if (root != null) {
                         System.out.println("Digite o CPF da pessoa");
-                        root = t.search(root, insert.nextInt());
+                        root = t.searchByCpf(root, insert.next());
                         System.out.println(t.getSearchPath());
                     }
                     break;
 
                 case 3:
                     System.out.print("Digite o nome da pessoa: ");
-                    root = t.search(root, insert.nextInt());
+                    root = t.searchByCpf(root, insert.next());
                     System.out.println(t.getSearchPath());
                     break;
 

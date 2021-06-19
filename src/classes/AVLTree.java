@@ -15,18 +15,19 @@ public class AVLTree {
         return searchPath;
     }
 
-    public Node search(Node node, People people) {
-        
-        if (people == node.people) {
+    public Node searchByCpf(Node node, String cpf) {
+        Integer key = Integer.parseInt(cpf);
+
+        if (key == Integer.parseInt(node.people.getCpf())) {
             System.out.println("\nNodo Encontrado: " + node.people);
             searchPath += node.people;
             return node;
-        } else if (people < node.people) {
+        } else if (key < Integer.parseInt(node.people.getCpf())) {
             searchPath += node.people + " > ";
-            search(node.left, people);
-        } else if (l) {
+            searchByCpf(node.left, cpf);
+        } else if (key > Integer.parseInt(node.people.getCpf())) {
             searchPath += node.people + " > ";
-            search(node.right, people);
+            searchByCpf(node.right, cpf);
         }
         System.out.println(searchPath);
         searchPath = "";
@@ -34,11 +35,13 @@ public class AVLTree {
     }
 
     public Node insert(Node node, People people) {
+        Integer key = Integer.parseInt(people.getCpf());
+
         if (node == null) {
             return (new Node(people, 0));
         }
 
-        if (Integer.parseInt(people.getCpf()) < Integer.parseInt(node.people.getCpf()))
+        if (key < Integer.parseInt(node.people.getCpf()))
             node.left = insert(node.left, people);
         else
             node.right = insert(node.right, people);
@@ -47,18 +50,18 @@ public class AVLTree {
 
         int balance = getBalance(node);
 
-        if (balance > 1 && people < node.left.people)
+        if (balance > 1 && key < Integer.parseInt(node.left.people.getCpf()))
             return rightRotate(node);
 
-        if (balance < -1 && people > node.right.people)
+        if (balance < -1 && key > Integer.parseInt(node.right.people.getCpf()))
             return leftRotate(node);
 
-        if (balance > 1 && people > node.left.people) {
+        if (balance > 1 && key > Integer.parseInt(node.left.people.getCpf())) {
             node.left = leftRotate(node.left);
             return rightRotate(node);
         }
 
-        if (balance < -1 && people < node.right.people) {
+        if (balance < -1 && key < Integer.parseInt(node.right.people.getCpf())) {
             node.right = rightRotate(node.right);
             return leftRotate(node);
         }
@@ -106,7 +109,6 @@ public class AVLTree {
         }
     }
 
-   
     public void print(Node root) {
         if (root == null) {
             // System.out.println("(XXXXXX)");
