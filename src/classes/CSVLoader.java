@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CSVLoader {
 
-    private String file = "C:\\Users\\Felipe Fernandes\\Desktop\\Uni\\CPF-Trees-AVL\\csv\\pessoas.csv" ;
+    private String file = "csv\\pessoas.csv" ;
     private List<People> peopleList = new ArrayList<>();
     public List<People> readFile() throws FileNotFoundException, IOException, IndexOutOfBoundsException {
 
