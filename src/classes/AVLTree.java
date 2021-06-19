@@ -24,7 +24,7 @@ public class AVLTree {
         } else if (people < node.people) {
             searchPath += node.people + " > ";
             search(node.left, people);
-        } else if (people > node.people) {
+        } else if (l) {
             searchPath += node.people + " > ";
             search(node.right, people);
         }
@@ -35,10 +35,10 @@ public class AVLTree {
 
     public Node insert(Node node, People people) {
         if (node == null) {
-            return (new Node(people));
+            return (new Node(people, 0));
         }
 
-        if (people < node.people)
+        if (Integer.parseInt(people.getCpf()) < Integer.parseInt(node.people.getCpf()))
             node.left = insert(node.left, people);
         else
             node.right = insert(node.right, people);
