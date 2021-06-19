@@ -1,18 +1,21 @@
 package classes;
 
-import java.time.LocalDate;
+
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 public class People {
     private String cpf;
     private String rg;
     private String name;
-    private LocalDate birthdate;
+    private Date birthdate;
     private String city;
 
     public People() {
     }
 
-    public People(String cpf, String rg, String name, LocalDate birthdate, String city) {
+    public People(String cpf, String rg, String name, Date birthdate, String city) {
         this.cpf = cpf;
         this.rg = rg;
         this.name = name;
@@ -44,13 +47,19 @@ public class People {
         this.name = name;
     }
 
-    public LocalDate getBirthdate() {
+    public Date getBirthdate() {
         return this.birthdate;
     }
 
     public void setBirthdate(String birthdate) {
-        LocalDate lt = LocalDate.parse(birthdate);
-        this.birthdate = lt;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            this.birthdate = sdf.parse(birthdate);
+        } catch (ParseException e) { 
+            e.printStackTrace();
+        }
+
     }
 
     public String getCity() {

@@ -1,38 +1,41 @@
 package classes;
 
 import java.util.*;
-import java.time.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class AVLTree {
-    private String searchPath = "";
-
     private int height(Node N) {
         if (N == null)
             return 0;
         return N.height;
     }
 
-    public String getSearchPath() {
-        return searchPath;
+    public void searchByCpf(Node node, String cpf) {
+        List<People> pList = new ArrayList<>();
+
+        traverseInOrderCPF(node, cpf, pList);
+
+        System.out.println("\ncaminhando pela árvore\n");
+
+        for (People people : pList) {
+            System.out.println(people);
+        }
     }
 
-    public Node searchByCpf(Node node, String cpf) {
-        Long key = Long.parseLong(node.people.getCpf());
-
-        if (cpf == node.people.getCpf()) {
-            System.out.println("\nNodo Encontrado: " + node.people);
-            searchPath += node.people;
-            return node;
-        } else if (key < Long.parseLong(node.people.getCpf())) {
-            searchPath += node.people + " > ";
-            searchByCpf(node.left, cpf);
-        } else if (key > Long.parseLong(node.people.getCpf())) {
-            searchPath += node.people + " > ";
-            searchByCpf(node.right, cpf);
+    public void traverseInOrderCPF(Node node, String cpf, List<People> pList) {
+        System.out.println(cpf);
+        if (node != null) {
+            if (node.people.getCpf().equals(cpf)) {
+                
+                pList.add(node.people);
+            }
+            traverseInOrderName(node.left, cpf, pList);
+            System.out.print(" " + node.people);
+            traverseInOrderName(node.right, cpf, pList);
         }
-        System.out.println(searchPath);
-        searchPath = "";
-        return node;
+
     }
 
     public void searchByName(Node node, String name) {
@@ -40,7 +43,7 @@ public class AVLTree {
 
         traverseInOrderName(node, name, pList);
 
-        System.out.println("\n\ntraverse in order\n\n");
+        System.out.println("\n\naminhando pela árvore\n\n");
 
         for (People people : pList) {
             System.out.println(people);
@@ -58,21 +61,33 @@ public class AVLTree {
         }
     }
 
-    public void searchByDates(Node node, LocalDate start, LocalDate end) {
+    public void searchByDates(Node node, String start, String end) {
+        Date startdate = null;
+        Date enddate  = null;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            startdate = sdf.parse(start);
+            enddate = sdf.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         List<People> pList = new ArrayList<>();
 
-        traverseInOrderDate(node, start, end, pList);
+        traverseInOrderDate(node, startdate, enddate, pList);
 
-        System.out.println("\n\ntraverse in order\n\n");
+        System.out.println("\n\naminhando pela árvore\n\n");
 
         for (People people : pList) {
             System.out.println(people);
         }
     }
 
-    public void traverseInOrderDate(Node node, LocalDate start, LocalDate end, List<People> pList) {
+    public void traverseInOrderDate(Node node, Date start, Date end, List<People> pList) {
         if (node != null) {
-            if (node.people.getBirthdate().isAfter(start) && node.people.getBirthdate().isBefore(end)) {
+            if (node.people.getBirthdate().after(start) && node.people.getBirthdate().before(end)) {
                 pList.add(node.people);
             }
             traverseInOrderDate(node.left, start, end, pList);
@@ -80,26 +95,6 @@ public class AVLTree {
             traverseInOrderDate(node.right, start, end, pList);
         }
     }
-
-    // public Node searchByBirth(Node node, People people, LocalDateTime start,
-    // LocalDateTime end) {
-    // Long key = Long.parseLong(people.getCpf());
-
-    // if (people.getName() == node.people.getName()) {
-    // System.out.println("\nNodo Encontrado: " + node.people);
-    // searchPath += node.people;
-    // return node;
-    // } else if (key < Long.parseLong(node.people.getCpf())) {
-    // searchPath += node.people + " > ";
-    // searchByName(node.left, people);
-    // } else if (key > Long.parseLong(node.people.getCpf())) {
-    // searchPath += node.people + " > ";
-    // searchByName(node.right, people);
-    // }
-    // System.out.println(searchPath);
-    // searchPath = "";
-    // return node;
-    // }
 
     public Node insert(Node node, People people) {
         Long key = Long.parseLong(people.getCpf());
@@ -207,7 +202,7 @@ public class AVLTree {
                     next.add(null);
 
                 } else {
-                    System.out.printf("(%s)", n.people);
+                    System.out.printf("(%s) (%s)", n.people.getName(), n.people.getCpf());
                     next.add(n.left);
                     next.add(n.right);
 
@@ -224,7 +219,8 @@ public class AVLTree {
                     if (n == null)
                         System.out.print("        ");
                     else
-                        System.out.printf("%s      %s", n.left == null ? " " : "/", n.right == null ? " " : "\\");
+                        System.out.printf("%s                            %s", n.left == null ? " " : "/",
+                                n.right == null ? " " : "\\");
 
                     System.out.print(textBuffer);
 

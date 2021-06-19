@@ -2,7 +2,6 @@ package classes;
 
 import java.io.*;
 import java.util.*;
-import java.time.*;
 
 
 public class CSVLoader {
@@ -13,8 +12,9 @@ public class CSVLoader {
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            People p = new People();
+            
             while ((line = br.readLine()) != null) {
+                People p = new People();
                 String[] data = line.split(";");
                 p.setCpf(data[0]);
                 p.setRg(data[1]);

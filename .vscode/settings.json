@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar"
+        ],
+        "exclude": [
+            "c:\\trabGB\\lib\\joda-time-2.10.10.jar",
+            "c:\\trabGB\\lib\\opencsv-5.4.jar"
+        ]
+    }
+}
